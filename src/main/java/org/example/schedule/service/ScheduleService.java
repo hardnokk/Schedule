@@ -53,4 +53,19 @@ public class ScheduleService {
         }
         return dtoList;
     }
+
+    @Transactional
+    public ScheduleResponse findSchedule(Long Id) {
+        ScheduleEntity scheduleEntity = scheduleRepository.findById(Id).orElseThrow(
+                () -> new IllegalArgumentException("해당 스케줄은 존재하지 않습니다.")
+        );
+        return new ScheduleResponse(
+                scheduleEntity.getId(),
+                scheduleEntity.getTitle(),
+                scheduleEntity.getContent(),
+                scheduleEntity.getName(),
+                scheduleEntity.getCreateTime(),
+                scheduleEntity.getUpdateTime()
+        );
+    }
 }

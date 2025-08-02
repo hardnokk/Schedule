@@ -28,6 +28,12 @@ public class ScheduleController {
     }
 
     // 선택 일정 조회
+    @GetMapping("/schedules/{Id}")
+    public ScheduleResponse getSchedule(
+            @PathVariable Long Id
+    ) {
+        return scheduleService.findSchedule(Id);
+    }
 
     // 선택 일정 수정
 
