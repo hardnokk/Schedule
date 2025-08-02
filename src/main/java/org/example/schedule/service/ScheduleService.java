@@ -74,12 +74,14 @@ public class ScheduleService {
         ScheduleEntity scheduleEntity = scheduleRepository.findById(Id).orElseThrow(
                 () -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다.")
         );
-
-        scheduleEntity.updateSchedule(
-                scheduleRequest.getContent(),
-                scheduleRequest.getName()
-        );
-
+        if (scheduleEntity.getPassword().equals(scheduleRequest.getPassword())) { // 입력한 비밀번호 비교
+            scheduleEntity.updateSchedule(
+                    scheduleRequest.getContent(),
+                    scheduleRequest.getName()
+            );
+        } else {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
         return new ScheduleResponse(
                 scheduleEntity.getId(),
                 scheduleEntity.getTitle(),
