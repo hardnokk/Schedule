@@ -45,5 +45,11 @@ public class ScheduleController {
     }
 
     // 선택 일정 삭제
-
+    @DeleteMapping("/schedules/{id}")
+    public void deleteSchedule(
+            @PathVariable Long id,
+            @RequestParam String password
+    ) {
+        scheduleService.deleteSchedule(id, password);
+    }
 }
