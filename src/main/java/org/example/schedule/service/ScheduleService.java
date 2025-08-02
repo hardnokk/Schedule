@@ -8,6 +8,9 @@ import org.example.schedule.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -31,5 +34,23 @@ public class ScheduleService {
                 saveSchedule.getCreateTime(),
                 saveSchedule.getUpdateTime()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<ScheduleResponse> findAll() {
+        List<ScheduleEntity> ScheduleList = scheduleRepository.findAll();
+        List<ScheduleResponse> dtoList = new ArrayList<>();
+
+        for (ScheduleEntity scheduleEntity : ScheduleList) {
+            dtoList.add(new ScheduleResponse(
+                    scheduleEntity.getId(),
+                    scheduleEntity.getTitle(),
+                    scheduleEntity.getContent(),
+                    scheduleEntity.getName(),
+                    scheduleEntity.getCreateTime(),
+                    scheduleEntity.getUpdateTime()
+            ));
+        }
+        return dtoList;
     }
 }

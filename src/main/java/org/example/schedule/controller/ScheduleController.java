@@ -22,6 +22,10 @@ public class ScheduleController {
     }
 
     // 전체 일정 조회
+    @GetMapping("/schedules")
+    public List<ScheduleResponse> getSchedules() {
+        return scheduleService.findAll();
+    }
 
     // 선택 일정 조회
 
