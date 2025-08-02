@@ -18,6 +18,11 @@ public class ScheduleService {
 
     @Transactional
     public ScheduleResponse save(ScheduleRequest scheduleRequest) {
+        // 비밀번호 유효성 검사
+        if (scheduleRequest.getPassword() == null || scheduleRequest.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("비밀번호는 반드시 입력해야 합니다.");
+        }
+
         ScheduleEntity scheduleEntity = new ScheduleEntity(
                 scheduleRequest.getTitle(),
                 scheduleRequest.getContent(),
