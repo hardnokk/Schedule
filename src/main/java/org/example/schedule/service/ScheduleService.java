@@ -68,4 +68,25 @@ public class ScheduleService {
                 scheduleEntity.getUpdateTime()
         );
     }
+
+    @Transactional
+    public ScheduleResponse updateSchedule(Long Id, ScheduleRequest scheduleRequest) {
+        ScheduleEntity scheduleEntity = scheduleRepository.findById(Id).orElseThrow(
+                () -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다.")
+        );
+
+        scheduleEntity.updateSchedule(
+                scheduleRequest.getContent(),
+                scheduleRequest.getName()
+        );
+
+        return new ScheduleResponse(
+                scheduleEntity.getId(),
+                scheduleEntity.getTitle(),
+                scheduleEntity.getContent(),
+                scheduleEntity.getName(),
+                scheduleEntity.getCreateTime(),
+                scheduleEntity.getUpdateTime()
+        );
+    }
 }
