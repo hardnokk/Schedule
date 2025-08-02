@@ -34,10 +34,10 @@ public class ScheduleEntity extends BaseEntity { // BaseEntity 상속
     }
 
     public void updateSchedule(
-            String name,
-            String content
+            String content,
+            String name
     ) {
-        this.name = name;
         this.content = content;
+        this.name = name;
     }
 }
