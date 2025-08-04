@@ -102,7 +102,7 @@ public class ScheduleService {
     @Transactional
     public void deleteSchedule(Long id, String password) {
         ScheduleEntity scheduleEntity = scheduleRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("그런 메모는 존재하지 않습니다.")
+                () -> new IllegalArgumentException("그런 스케줄은 존재하지 않습니다.")
         );
 
         if (!scheduleEntity.getPassword().equals(password)) {
