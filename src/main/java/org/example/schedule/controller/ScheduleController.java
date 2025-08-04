@@ -36,12 +36,13 @@ public class ScheduleController {
     }
 
     // 선택 일정 수정
-    @PutMapping("/schedules/{Id}")
+    @PutMapping("/schedules/{Id}/{password}")
     public ScheduleResponse updateSchedule(
             @PathVariable Long Id,
+            @PathVariable String password,
             @RequestBody ScheduleRequest scheduleRequest
     ) {
-        return scheduleService.updateSchedule(Id, scheduleRequest);
+        return scheduleService.updateSchedule(Id, password, scheduleRequest);
     }
 
     // 선택 일정 삭제

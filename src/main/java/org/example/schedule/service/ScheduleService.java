@@ -75,18 +75,20 @@ public class ScheduleService {
     }
 
     @Transactional
-    public ScheduleResponse updateSchedule(Long Id, ScheduleRequest scheduleRequest) {
+    public ScheduleResponse updateSchedule(Long Id, String password, ScheduleRequest scheduleRequest) {
         ScheduleEntity scheduleEntity = scheduleRepository.findById(Id).orElseThrow(
                 () -> new IllegalArgumentException("해당 스케줄이 존재하지 않습니다.")
         );
-        if (scheduleEntity.getPassword().equals(scheduleRequest.getPassword())) { // 입력한 비밀번호 비교
-            scheduleEntity.updateSchedule(
-                    scheduleRequest.getContent(),
-                    scheduleRequest.getName()
-            );
-        } else {
+
+        if (!scheduleEntity.getPassword().equals(password)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+
+        scheduleEntity.updateSchedule(
+                scheduleRequest.getContent(),
+                scheduleRequest.getName()
+        );
+
         return new ScheduleResponse(
                 scheduleEntity.getId(),
                 scheduleEntity.getTitle(),
