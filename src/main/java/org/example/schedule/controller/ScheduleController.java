@@ -45,10 +45,10 @@ public class ScheduleController {
     }
 
     // 선택 일정 삭제
-    @DeleteMapping("/schedules/{id}")
+    @DeleteMapping("/schedules/{id}/{password}")
     public void deleteSchedule(
             @PathVariable Long id,
-            @RequestParam String password
+            @PathVariable String password
     ) {
         scheduleService.deleteSchedule(id, password);
     }
